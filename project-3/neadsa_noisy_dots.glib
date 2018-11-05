@@ -1,0 +1,23 @@
+##OpenGL GLIB
+LookAt  5 0 5  0 0 0  0 1 0
+Perspective 70
+
+Vertex   neadsa_noisy_dots.vert
+Fragment neadsa_noisy_dots.frag
+Program  neadsa_noisy_dots \
+	uAd <.01 .1 .5> \
+	uBd <.01 .15 .5> \
+	uNoiseAmp <0.0 1.0 10.0> \
+	uNoiseFreq <0.0 1.0 10.0> \
+	uAlpha <0.0 1.0 1.0> \
+	uTol <0.001 0.01 1.0> \
+	uUseLighting <true> \
+	uUseChromaDepth <false> \
+	uChromaRed <-10.0 -6.7, 0.0> \
+	uChromaBlue <-20.0 -9.4, 0.0>
+
+Color 1.0 1.0 1.0
+Sphere 3
+
+MessageBox This implements Alpha and ChromaDepth extra credit
+MessageBox Please note that lighting and ChromaDepth are mutually exclusive options

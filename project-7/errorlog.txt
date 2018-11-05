@@ -1,0 +1,6 @@
+
+0(21) : error C7011: implicit cast from "vec4" to "vec3"
+0(22) : error C7011: implicit cast from "vec4" to "vec3"
+0(23) : error C7011: implicit cast from "vec4" to "vec3"
+0(26) : error C1115: unable to find compatible overloaded function "max(float)"
+

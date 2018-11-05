@@ -1,0 +1,53 @@
+#version 400 compatibility
+#extension GL_ARB_tessellation_shader : enable
+
+layout( triangles, equal_spacing, ccw) in;
+
+uniform float uZ01, uZ12, uZ20;
+
+out vec3 teNormal;
+out vec3 teECposition;
+
+void main()
+{
+	vec4 p0 = gl_in[0].gl_Position;
+	vec4 p1 = gl_in[1].gl_Position;
+	vec4 p2 = gl_in[2].gl_Position;
+	vec4 p3 = gl_in[3].gl_Position;
+	
+	vec4 p01 = vec4( (p0.x + p1.x)/2.0, (p0.y + p1.y)/2.0, uZ01, 1.0 );
+	vec4 p12 = vec4( (p2.x + p1.x)/2.0, (p2.y + p1.y)/2.0, uZ12, 1.0 );
+	vec4 p20 = vec4( (p0.x + p2.x)/2.0, (p0.y + p2.y)/2.0, uZ20, 1.0 );
+	
+	float u = gl_TessCoord.x;
+	float v = gl_TessCoord.y;
+	float w = gl_TessCoord.z;
+	
+	float b0 = pow( u, 2.0 );
+	float b1 = pow( v, 2.0 );
+	float b2 = pow( 1.0 - u - v, 2.0 );
+	float b01 = 2.0 * u * v;
+	float b12 = 2.0 * v * (v - u * v - pow(v, 2.0));
+	float b20 = 2 * (u - pow(u, 2.0) - u * v);
+	
+	float db0du = 2.*u;
+	float db0dv = 0.;
+	float db1du = 0.;
+	float db1dv = 2.*v;
+	float db2du = -2.*(1.-u-v);
+	float db2dv = -2.*(1.-u-v);
+	float db01du = 2.*v;
+	float db01dv = 2.*u;
+	float db12du = -2.*v;
+	float db12dv = 2.*(1.-u-2.*v);
+	float db20du = 2.*(1.-2.*u-v);
+	float db20dv = -2.*u;
+	
+	teECposition = ( gl_ModelViewMatrix * ( b0*p0 + b01*p01 + b1*p1 + b12*p12 + b2*p2 + b20*p20 ) ).xyz;
+	gl_Position = vec4( teECposition, 1. );
+	
+	vec4 dpdu = db0du*p0 + db01du*p01 + db1du*p1 + db12du*p12 + db2du*p2 + db20du*p20;
+	vec4 dpdv = db0dv*p0 + db01dv*p01 + db1dv*p1 + db12dv*p12 + db2dv*p2 + db20dv*p20;
+	
+	teNormal = gl_NormalMatrix * normalize( cross( dpdu.xyz, dpdv.xyz ) );
+}

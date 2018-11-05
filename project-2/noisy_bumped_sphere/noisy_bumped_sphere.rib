@@ -1,0 +1,27 @@
+##RenderMan RIB
+version 3.03
+
+Declare "Ad"	"uniform float"
+Declare "Bd"	"uniform float"
+Declare "NoiseAmp"	"uniform float"
+Declare "DispAmp"	"uniform float"
+
+Display "noisy_bumped_sphere.tiff" "file" "rgb"
+Format 1024 1024 -1
+ShadingRate 1
+
+LightSource "ambientlight" 1 "intensity" [0.25]
+LightSource "distantlight" 2 "intensity" [0.75] "from" [5 8 -10] "to" [0 0 0]
+
+Projection "perspective" "fov" [70]
+WorldBegin
+	Translate 0 0 6
+	Displacement "noisy_bumped_sphere" "Ad" 0.100 "Bd" 0.050
+	Surface "noisy_sphere" "Ad" 0.100 "Bd" 0.050
+	Color [0.2 0.2 1]
+	Opacity [1 1 1]
+	TransformBegin
+		Rotate 90 1. 0. 0.
+		Sphere 3 -3 3 360
+	TransformEnd
+WorldEnd

@@ -1,0 +1,4 @@
+
+0(50) : error C1038: declaration of "angx" conflicts with previous declaration at 0(49)
+0(63) : warning C7011: implicit cast from "vec4" to "vec3"
+

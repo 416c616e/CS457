@@ -1,0 +1,38 @@
+##OpenGL GLIB
+
+Perspective 70
+LookAt 2 -1 1 0 2 -1 0 0 1
+
+Vertex mtriangle.vert
+TessControl mtriangle.tcs
+TessEvaluation mtriangle.tes
+Geometry mtriangle.geom
+Fragment mtriangle.frag
+
+Program MidTriangle \
+		uOuter01 <0.5 5. 50.>		\
+		uOuter12 <0.5 5. 50.>		\
+		uOuter20 <0.5 5. 50.>		\
+		uInner <0.5 5. 20.>			\
+		uZ01 <-2. 0. 2.>			\
+		uZ12 <-2. 0. 2.>			\
+		uZ20 <-2. 0. 2.>			\
+		uAdaptToZs <false>			\
+		uShrink <0. 0.9 1.>			\
+		uSurfaceColor {1. 1. 0.3 1.}\
+		uSpecularColor {1. 1. 1. 1.}\
+		uKa <0. 0.1 1.0>			\
+		uKd <0. 0.7 1.0>			\
+		uKs <0. 0.2 1.0>			\
+		uShininess <3. 10. 1000.>	\
+		uLightX <-10. 0. 10.>		\
+		uLightY <-10. 8. 10.>		\
+		uLightZ <-10. 8. 10.>
+
+Color 1. .5 0.
+NumPatchVertices 3
+glBegin gl_patches
+	glVertex 0. 0. 0.
+	glVertex 2. 0. 0.
+	glVertex 0. 2. 0.
+glEnd

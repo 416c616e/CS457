@@ -1,0 +1,24 @@
+##RenderMan RIB
+version 3.03
+
+Declare "Ad"	"uniform float"
+Declare "Bd"	"uniform float"
+
+Display "elliptical_dots.tiff" "file" "rgb"
+Format 512 512 -1
+ShadingRate 1
+
+LightSource "ambientlight" 1 "intensity" [0.25]
+LightSource "distantlight" 2 "intensity" [0.75] "from" [5 8 -10] "to" [0 0 0]
+
+Projection "perspective" "fov" [70]
+WorldBegin
+	Translate 0 0 6
+	Surface "ovals" "Ad" 0.050 "Bd" 0.025
+	Color [1 1 1]
+	Opacity [1 1 1]
+	TransformBegin
+		Rotate 90 1. 0. 0.
+		Sphere 3 -3 3 360
+	TransformEnd
+WorldEnd
